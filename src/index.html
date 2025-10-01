@@ -3,31 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/src/assets/style/index.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="./assets/style/index.css">
+    <title>Marlon's Machine</title>
 </head>
 <body>
-    <main>
-        <nav class="navbar">
+    <main class="conteudo">
+        <header class="cabecalio">
 
-            <ul class="conversions-links">
-                <li><a href="">Decimal</a></li>
-                <li><a href="">Binário</a></li>
-                <li><a href="">Octal</a></li>
-                <li><a href="">Decimal</a></li>
-            </ul>
-
-            <div class="github-link">
-                <a href="">
-                    <img src="" alt="Perfil no GitHub">
+            <nav class="nav-principal">
+                
+                <a class="logo" href="index.html" target="_self">
+                    <h2>
+                        Marlon Machine
+                    </h2>
                 </a>
-            </div>
-        </nav>
 
-        <section id="content">
-            <h2>Marlon Machine</h2>
-            <p>Escolha a base numérica à ser convertida no menu acima.</p>
+                <div class="nav-links">
+                    <a href="">Conversor</a>
+                    <a href="">Calculadora</a>
+                </div>
+
+                <a class="github-link" href="https://github.com/marlonzl7" target="_blank">
+                    <img src="/src/assets/images/github-brands 1.svg" alt="Perfil no github">
+                </a>
+            </nav>
+
+            <!--
+            <nav class="nav-conversoes">
+                <ul class="lista-conversoes">
+                    <li>
+                        <a href="">Decimal</a>
+                    </li>
+
+                    <li>
+                        <a href="">Binário</a>
+                    </li>
+
+                    <li>
+                        <a href="">Octal</a>
+                    </li>
+
+                    <li>
+                        <a href="">Hexadecimal</a>
+                    </li>
+                </ul>
+            </nav>
+            -->
+
+        </header>
+        
+        <section class="entrada">
+
+            <div class="titulo">
+                <h2>Conversor</h2>
+            </div>
+
+            <div class="input-group">
+                <div class="input-box">
+                    <label for="inputBase">Selecione uma base numérica:</label>
+                    <select name="inputBase" id="inputBase">
+                        <option value="Selecione">Selecione...</option>
+                        <option value="Decimal">Decimal</option>
+                        <option value="Binario">Binário</option>
+                        <option value="Octal">Octal</option>
+                        <option value="Hexadecimal">Hexadecimal</option>
+                    </select>
+                </div>
+
+                <div class="input-box">
+                    <label for="inputValue">Insira um número:</label>
+                    <input type="text" name="inputValue" id="inputValue" placeholder="Ex: 1101">
+                </div>
+
+            </div>
+
+            <div class="button">
+                <button onclick="converter()">Converter</button>
+            </div>
+
         </section>
+        
+        
+        <section class="saidas">
+            <div class="card-saida">
+                <span>Saída</span>
+                <div class="output-box">
+                    10
+                </div>
+            </div>
+
+            <div class="card-saida">
+                <span>Saída</span>
+                <div class="output-box">
+                    10
+                </div>
+            </div>
+
+            <div class="card-saida">
+                <span>Saída</span>
+                <div class="output-box">
+                    10
+                </div>
+            </div>
+        </section>
+        
+        <!--
+        <footer class="rodape">
+            <span>Feito por <a href="https://github.com/marlonzl7" target="_blank">@marlonzl7</a></span>
+        </footer>
+        -->
     </main>
 </body>
 
