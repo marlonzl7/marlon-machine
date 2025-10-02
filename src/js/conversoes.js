@@ -10,36 +10,52 @@ function converterBinarioParaDecimal(binario) {
 
 function converterBinarioParaOctal(binario) {
     let octal = [];
-    let temp = [];
-
-    for (let i = binario.length - 1; i >= 0; i -= 3) {
-        let k = 0;
-
-        for (let j = i; j >= i - 3; j--) {
-            temp[j] = binario[j];
+    let temp = [0, 0, 0];
+    
+    for (let i = binario.length - 1, j = 0; i >= 0; i -= 3, j++) {
+        for (let k = i - 3, l = 0; k <= i; k++, l++) {
+            temp[l] = (k >= 0) ? binario[k] : 0;
         }
 
-        octal[k] = converterBinarioParaDecimal(temp);
+        octal[j] = converterBinarioParaDecimal(temp);
 
-        k++;
+        temp = [0, 0, 0];
     }
+
+    inverter(octal);
 
     return octal;
 }
 
 function converterBinarioParaHexadecimal(binario) {
     let hexadecimal = [];
-    let temp = [];
+    let temp = [0, 0, 0, 0];
     let aux = 0;
 
-    for (let i = binario.length - 1; i >= 0; i -= 4) {
-        let k = 0;
-
-        for (let j = i; j >= i - 4; j--) {
-            
+    for (let i = binario.length - 1, j = 0; i >= 0; i -= 4, j++) {
+        for (let k = i - 3, l = 0; k <= i; k++, l++) {
+            temp[l] = (k >= 0) ? binario[k] : 0;
         }
 
+        aux = converterBinarioParaDecimal(temp);
+        
+        if (aux >= 10) {
+            switch (aux) {
+                case 10: aux = 'A'; break;
+                case 11: aux = 'B'; break;
+                case 12: aux = 'C'; break;
+                case 13: aux = 'D'; break;
+                case 14: aux = 'E'; break;
+                case 15: aux = 'F'; break;
+            }
+        }
+
+        hexadecimal[j] = aux;
+
+        temp = [0, 0, 0, 0];
     }
+
+    inverter(hexadecimal);
 
     return hexadecimal;
 }
@@ -65,4 +81,12 @@ function converterDecimalParaBinario(decimal) {
     }
 
     return binario;
+}
+
+function inverter(arr) {
+    for (let i = 0, j = arr.length - 1; i < arr.length / 2; i++, j--) {
+        let aux = arr[i];
+        arr[i] = arr[j];
+        arr[j] = aux;
+    }
 }
