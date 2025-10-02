@@ -1,4 +1,4 @@
-function converterBinarioParaDecimal(binario) {
+function binarioParaDecimal(binario) {
     let decimal = 0;
 
     for (let i = binario.length - 1, j = 0; i >= 0; i--, j++) {
@@ -8,7 +8,7 @@ function converterBinarioParaDecimal(binario) {
     return decimal;
 }
 
-function converterBinarioParaOctal(binario) {
+function binarioParaOctal(binario) {
     let octal = [];
     let temp = [0, 0, 0];
     
@@ -17,7 +17,7 @@ function converterBinarioParaOctal(binario) {
             temp[l] = (k >= 0) ? binario[k] : 0;
         }
 
-        octal[j] = converterBinarioParaDecimal(temp);
+        octal[j] = binarioParaDecimal(temp);
 
         temp = [0, 0, 0];
     }
@@ -27,7 +27,7 @@ function converterBinarioParaOctal(binario) {
     return octal;
 }
 
-function converterBinarioParaHexadecimal(binario) {
+function binarioParaHexadecimal(binario) {
     let hexadecimal = [];
     let temp = [0, 0, 0, 0];
     let aux = 0;
@@ -37,7 +37,7 @@ function converterBinarioParaHexadecimal(binario) {
             temp[l] = (k >= 0) ? binario[k] : 0;
         }
 
-        aux = converterBinarioParaDecimal(temp);
+        aux = binarioParaDecimal(temp);
         
         if (aux >= 10) {
             switch (aux) {
@@ -60,7 +60,7 @@ function converterBinarioParaHexadecimal(binario) {
     return hexadecimal;
 }
 
-function converterDecimalParaBinario(decimal) {
+function decimalParaBinario(decimal) {
     let k =  Math.floor(Math.log(decimal) / Math.log(2)) + 1;
     let binario = new Array(k);
 
@@ -70,7 +70,7 @@ function converterDecimalParaBinario(decimal) {
 
     let resto = decimal;
 
-    for (let i = binario.length; i >= 0; i--) {
+    for (let i = binario.length - 1; i >= 0; i--) {
         let potencia = Math.pow(2, i);
 
         binario[binario.length - i - 1] = (resto - potencia >= 0) ? 1 : 0;
@@ -81,12 +81,4 @@ function converterDecimalParaBinario(decimal) {
     }
 
     return binario;
-}
-
-function inverter(arr) {
-    for (let i = 0, j = arr.length - 1; i < arr.length / 2; i++, j--) {
-        let aux = arr[i];
-        arr[i] = arr[j];
-        arr[j] = aux;
-    }
 }
