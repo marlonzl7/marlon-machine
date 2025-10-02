@@ -17,38 +17,7 @@
                         Marlon Machine
                     </h2>
                 </a>
-
-                <div class="nav-links">
-                    <a href="">Conversor</a>
-                    <a href="">Calculadora</a>
-                </div>
-
-                <a class="github-link" href="https://github.com/marlonzl7" target="_blank">
-                    <img src="/src/assets/images/github-brands 1.svg" alt="Perfil no github">
-                </a>
             </nav>
-
-            <!--
-            <nav class="nav-conversoes">
-                <ul class="lista-conversoes">
-                    <li>
-                        <a href="">Decimal</a>
-                    </li>
-
-                    <li>
-                        <a href="">Binário</a>
-                    </li>
-
-                    <li>
-                        <a href="">Octal</a>
-                    </li>
-
-                    <li>
-                        <a href="">Hexadecimal</a>
-                    </li>
-                </ul>
-            </nav>
-            -->
 
         </header>
         
@@ -74,49 +43,30 @@
                     <label for="inputValue">Insira um número:</label>
                     <input type="text" name="inputValue" id="inputValue" placeholder="Ex: 1101">
                 </div>
-
             </div>
 
             <div class="button">
-                <button onclick="converter()">Converter</button>
+                <button>Converter</button>
             </div>
 
         </section>
         
         
         <section class="saidas">
-            <div class="card-saida">
-                <span>Saída</span>
-                <div class="output-box">
-                    10
-                </div>
-            </div>
-
-            <div class="card-saida">
-                <span>Saída</span>
-                <div class="output-box">
-                    10
-                </div>
-            </div>
-
-            <div class="card-saida">
-                <span>Saída</span>
-                <div class="output-box">
-                    10
-                </div>
+            <div id="saida" class="saida">
+                
             </div>
         </section>
         
-        <!--
         <footer class="rodape">
             <span>Feito por <a href="https://github.com/marlonzl7" target="_blank">@marlonzl7</a></span>
         </footer>
-        -->
     </main>
 </body>
 
-<script src="/src/js/conversoes.js">
-    
-</script>
+<script src="./js/utils.js"></script>
+<script src="./js/conversoes.js"></script>
+<script src="./js/operacoes.js"></script>
+<script src="./js/main.js"></script>
 
 </html>
