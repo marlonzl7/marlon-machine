@@ -93,6 +93,7 @@
         document.getElementById('saida').innerHTML = resultado1 + "<br>" + resultado2 + "<br>" + resultado3;
     }
 
+    // Utilitários
     function inverter(arr) {
         for (let i = 0, j = arr.length - 1; i < arr.length / 2; i++, j--) {
             let aux = arr[i];
@@ -125,6 +126,7 @@
         }
     }
 
+    // Operações
     function realizarOperacao(n1, n2, base, operacao) {
         let baseNumerica = base.toLowerCase();
         let operacaoMat = operacao.toLowerCase();
@@ -199,6 +201,8 @@
         return decimal1 / decimal2;
     }
 
+
+    // Conversões
     function binarioParaDecimal(binario) {
         let decimal = 0;
 
