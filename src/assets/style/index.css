@@ -151,12 +151,23 @@ body {
 }
 
 .saidas {
-    background-color: aliceblue;
-    width: 100vw;
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 20%;
+}
+
+.saida {
+    display: flex;
+    padding: 2rem;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.label-resultado {
+    font-weight: bold;
 }
 
 .card-saida {
