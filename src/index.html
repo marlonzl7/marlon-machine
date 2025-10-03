@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/style/index.css">
+    <title>Marlon's Machine</title>
+</head>
+<body>
+    <main class="conteudo">
+        <header class="cabecalio">
+
+            <nav class="nav-principal">
+                
+                <a class="logo" href="index.html" target="_self">
+                    <h2>
+                        Marlon Machine
+                    </h2>
+                </a>
+            </nav>
+
+        </header>
+        
+        <section class="entrada">
+
+            <div class="titulo">
+                <h2>Conversor</h2>
+            </div>
+
+            <div class="input-group">
+                <div class="input-box">
+                    <label for="inputBase">Selecione uma base numérica:</label>
+                    <select name="inputBase" id="inputBase">
+                        <option value="Selecione">Selecione...</option>
+                        <option value="decimal">Decimal</option>
+                        <option value="binario">Binário</option>
+                        <option value="octal">Octal</option>
+                        <option value="hexadecimal">Hexadecimal</option>
+                    </select>
+                </div>
+
+                <div class="input-box">
+                    <label for="inputValue">Insira um número:</label>
+                    <input type="text" name="inputValue" id="inputValue" placeholder="Ex: 1101">
+                </div>
+            </div>
+
+            <div class="button">
+                <button onclick="converter()">Converter</button>
+            </div>
+
+        </section>
+        
+        
+        <section class="saidas">
+            <div id="saida" class="saida">
+                
+            </div>
+        </section>
+        
+        <footer class="rodape">
+            <span>Feito por <a href="https://github.com/marlonzl7" target="_blank">@marlonzl7</a></span>
+        </footer>
+    </main>
+</body>
+
+<script>
+    function converter() {
+        let valor = document.getElementById('inputValue').value;
+        let base = document.getElementById('inputBase').value;
+
+        if (!validar(base, valor)) {
+            alert("Entrada inválida");
+            return;
+        }
+
+        let resultado1, resultado2, resultado3;
+
+        switch (base.toLowerCase()) {
+            case 'binario':
+                resultado1 = "<span class='label-resultado'>Decimal: " + binarioParaDecimal(valor) + "</span>";
+                resultado2 = "<span class='label-resultado'>Octal: " + binarioParaOctal(valor) + "</span>";
+                resultado3 = "<span class='label-resultado'>Hexadecimal: " + binarioParaHexadecimal(valor) + "</span>";
+                break;
+                
+            default:
+                resultado1 = "Conversão ainda não implementada para " + base;
+                resultado2 = "";
+                resultado3 = "";
+
+        }
+        
+        document.getElementById('saida').innerHTML = resultado1 + "<br>" + resultado2 + "<br>" + resultado3;
+    }
+
+    // Utilitários
+    function inverter(arr) {
+        for (let i = 0, j = arr.length - 1; i < arr.length / 2; i++, j--) {
+            let aux = arr[i];
+            arr[i] = arr[j];
+            arr[j] = aux;
+        }
+    }
+
+    function validar(base, valor) {
+        let caracteresValidos = obterCaracteresValidos(base);
+
+        if (!valor) return false;
+
+        for (let i = 0; i < valor.length; i++) {
+            if (caracteresValidos.indexOf(valor[i].toUpperCase()) === -1) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    function obterCaracteresValidos(base) {
+        switch (base.toLowerCase()) {
+            case 'decimal': return '0123456789';
+            case 'binario': return '01';
+            case 'octal': return '01234567';
+            case 'hexadecimal': return '0123456789ABCDEFabcdef';
+            default: return '';
+        }
+    }
+
+    // Operações
+    function realizarOperacao(n1, n2, base, operacao) {
+        let baseNumerica = base.toLowerCase();
+        let operacaoMat = operacao.toLowerCase();
+        let basesValidas = ['binario', 'decimal', 'octal', 'hexadecimal'];
+        let resultado;
+
+        switch (operacaoMat) {
+            case 'somar':
+                n1 = binarioParaDecimal(n1);
+                n2 = binarioParaDecimal(n2);
+
+                let resultado = calcularResultado(operacao);
+
+                break;
+        }
+        switch (baseNumerica()) {
+            case 'binario':
+                n1 = binarioParaDecimal(n1);
+                n2 = binarioParaDecimal(n2);
+
+                resultado = calcularResultado(operacao);
+
+                break;
+
+            case 'decimal':
+                resultado = calcularResultado(operacao);
+                
+                break;
+
+            case 'octal':
+                n1 = binarioParaDecimal(n1);
+                n2 = binarioParaDecimal(n2);
+
+                resultado = calcularResultado(operacao);
+                
+                break;
+
+            case 'hexadecimal':
+                n1 = binarioParaDecimal(n1);
+                n2 = binarioParaDecimal(n2);
+
+                resultado = calcularResultado(operacao);
+                
+                break;
+
+
+        }
+
+        return resultado;
+    }
+
+    function calcularResultado(operacao, n1, n2) {
+        if (operacao == 'somar') return somar(n1, n2);
+        if (operacao == 'subtrair') return subtrair(n1, n2);
+        if (operacao == 'multiplicar') return multiplicar(n1, n2);
+        if (operacao == 'dividir') return dividir(n1, n2);
+    }
+
+    function somar(decimal1, decimal2) {
+        return decimal1 + decimal2;
+    }
+
+    function subtrair(decimal1, decimal2) {
+        return decimal1 - decimal2;
+    }
+
+    function multiplicar(decimal1, decimal2) {
+        return decimal1 * decimal2;
+    }
+
+    function dividir(decimal1, decimal2) {
+        return decimal1 / decimal2;
+    }
+
+
+    // Conversões
+    function binarioParaDecimal(binario) {
+        let decimal = 0;
+
+        for (let i = binario.length - 1, j = 0; i >= 0; i--, j++) {
+            decimal += (binario[i] === '1') ? Math.pow(2, j) : 0;
+        }
+
+        return decimal;
+    }
+
+    function binarioParaOctal(binario) {
+        let octal = [];
+        let temp = [0, 0, 0];
+        
+        for (let i = binario.length - 1, j = 0; i >= 0; i -= 3, j++) {
+            for (let k = i - 2, l = 0; k <= i; k++, l++) {
+                temp[l] = (k >= 0) ? binario[k] : 0;
+            }
+
+            octal[j] = binarioParaDecimal(temp);
+
+            temp = [0, 0, 0];
+        }
+
+        inverter(octal);
+
+        return octal.join('');
+    }
+
+    function binarioParaHexadecimal(binario) {
+        let hexadecimal = [];
+        let temp = [0, 0, 0, 0];
+        let aux = 0;
+
+        for (let i = binario.length - 1, j = 0; i >= 0; i -= 4, j++) {
+            for (let k = i - 3, l = 0; k <= i; k++, l++) {
+                temp[l] = (k >= 0) ? binario[k] : 0;
+            }
+
+            aux = binarioParaDecimal(temp);
+            
+            if (aux >= 10) {
+                switch (aux) {
+                    case 10: aux = 'A'; break;
+                    case 11: aux = 'B'; break;
+                    case 12: aux = 'C'; break;
+                    case 13: aux = 'D'; break;
+                    case 14: aux = 'E'; break;
+                    case 15: aux = 'F'; break;
+                }
+            }
+
+            hexadecimal[j] = aux;
+
+            temp = [0, 0, 0, 0];
+        }
+
+        inverter(hexadecimal);
+
+        return hexadecimal.join('');
+    }
+
+    function decimalParaBinario(decimal) {
+        let k =  Math.floor(Math.log(decimal) / Math.log(2)) + 1;
+        let binario = new Array(k);
+
+        if (decimal <= 0) {
+            return binario;
+        }
+
+        let resto = decimal;
+
+        for (let i = binario.length - 1; i >= 0; i--) {
+            let potencia = Math.pow(2, i);
+
+            binario[binario.length - i - 1] = (resto - potencia >= 0) ? 1 : 0;
+
+            if (binario[binario.length - i - 1] == 1) {
+                resto -= potencia;
+            }
+        }
+
+        return binario.join('');
+    }
+
+</script>
+
+</html>
