@@ -21,40 +21,94 @@
 
         </header>
         
-        <section class="entrada">
+        <section class="conteudo-principal">
+            
+            <div class="secao-conteudo conversor">
 
-            <div class="titulo">
-                <h2>Conversor</h2>
-            </div>
-
-            <div class="input-group">
-                <div class="input-box">
-                    <label for="inputBase">Selecione uma base numérica:</label>
-                    <select name="inputBase" id="inputBase">
-                        <option value="Selecione">Selecione...</option>
-                        <option value="decimal">Decimal</option>
-                        <option value="binario">Binário</option>
-                        <option value="octal">Octal</option>
-                        <option value="hexadecimal">Hexadecimal</option>
-                    </select>
+                <div class="titulo">
+                    <h2>Conversor</h2>
                 </div>
 
-                <div class="input-box">
-                    <label for="inputValue">Insira um número:</label>
-                    <input type="text" name="inputValue" id="inputValue" placeholder="Ex: 1101">
+                <div class="input-group">
+
+                    <div class="input-box">
+                        <label for="inputBase">Selecione uma base numérica:</label>
+                        <select name="inputBase" id="inputBase">
+                            <option value="Selecione">Selecione...</option>
+                            <option value="decimal">Decimal</option>
+                            <option value="binario">Binário</option>
+                            <option value="octal">Octal</option>
+                            <option value="hexadecimal">Hexadecimal</option>
+                        </select>
+                    </div>
+
+                    <div class="input-box">
+                        <label for="inputValue">Insira um número:</label>
+                        <input type="text" name="inputValue" id="inputValue" placeholder="Ex: 1101">
+                    </div>
+
                 </div>
-            </div>
-
-            <div class="button">
-                <button onclick="converter()">Converter</button>
-            </div>
-
-        </section>
-        
-        
-        <section class="saidas">
-            <div id="saida" class="saida">
                 
+                <div class="button">
+                    <button onclick="converter()">Converter</button>
+                </div>
+
+                <div class="resultado resultadoConversor" id="resultadoConversor">
+
+                </div>
+
+            </div>
+
+            <div class="secao-conteudo calculadora">
+
+                <div class="titulo">
+                    <h2>Calculadora</h2>
+                </div>
+                
+                <div class="input-group">
+
+                    <div class="input-box">
+                        <label for="primeiroNumero">Primeiro número</label>
+                        <input type="text" name="primeiroNumero" id="primeiroNumero">
+                    </div>
+
+                    <div class="input-box">
+                        <label for="segundoNumero">Segundo número</label>
+                        <input type="text" name="segundoNumero" id="segundoNumero">
+                    </div>
+
+                    <div class="input-box baseNumerica">
+                        <label for="baseNumerica">Escolha a base numérica</label>
+                        <select name="baseNumerica" id="baseNumerica">
+                            <option value="Selecione">Selecione...</option>
+                            <option value="decimal">Decimal</option>
+                            <option value="binario">Binário</option>
+                            <option value="octal">Octal</option>
+                            <option value="hexadecimal">Hexadecimal</option>
+                        </select>
+                    </div>
+
+                    <div class="input-box operacao">
+                        <label for="operacaoAritmetica">Escolha a operação</label>
+                        <select name="operacaoAritmetica" id="operacaoAritmetica">
+                            <option value="Selecione">Selecione...</option>
+                            <option value="somar">Soma</option>
+                            <option value="subtrair">Subtração</option>
+                            <option value="multiplicar">Multiplicação</option>
+                            <option value="dividir">Divisão</option>
+                        </select>
+                    </div>
+
+                    <div class="button">
+                        <button onclick="calcular()">Calcular</button>
+                    </div>
+
+                    <div class="resultado resultadoCalculadora" id="resultadoCalculadora">
+
+                    </div>
+
+                </div>
+
             </div>
         </section>
         
@@ -69,7 +123,7 @@
         let valor = document.getElementById('inputValue').value;
         let base = document.getElementById('inputBase').value;
 
-        if (!validar(base, valor)) {
+        if (!validarBase(base, valor)) {
             alert("Entrada inválida");
             return;
         }
@@ -90,7 +144,24 @@
 
         }
         
-        document.getElementById('saida').innerHTML = resultado1 + "<br>" + resultado2 + "<br>" + resultado3;
+        document.getElementById('resultadoConversor').innerHTML = resultado1 + "<br>" + resultado2 + "<br>" + resultado3;
+    }
+
+    function calcular() {
+        let numero1 = document.getElementById('primeiroNumero').value;
+        let numero2 = document.getElementById('segundoNumero').value;
+        let base = document.getElementById('baseNumerica').value;
+        let operacao = document.getElementById('operacaoAritmetica').value;
+        let resultado = 0;
+
+        if (!validarBase(base, numero1) || !validarBase(base, numero2)) {
+            alert("Entrada inválida");
+            return;
+        }
+
+        resultado = realizarOperacao(numero1, numero2, base, operacao);
+
+        console.log(numero1 ((operacao == 'somar') ? ' + ' : (operacao == 'subtrair') ? ' - ' : (operacao == 'multiplicar') ? ' * ' : (operacao == 'dividir') ? ' / ' : '') + numero2 + ' = ' + resultado);
     }
 
     // Utilitários
@@ -102,7 +173,7 @@
         }
     }
 
-    function validar(base, valor) {
+    function validarBase(base, valor) {
         let caracteresValidos = obterCaracteresValidos(base);
 
         if (!valor) return false;
@@ -126,81 +197,17 @@
         }
     }
 
-    // Operações
-    function realizarOperacao(n1, n2, base, operacao) {
-        let baseNumerica = base.toLowerCase();
-        let operacaoMat = operacao.toLowerCase();
-        let basesValidas = ['binario', 'decimal', 'octal', 'hexadecimal'];
-        let resultado;
+    function validarOperacoes(operacao) {
+        let operacoesValidas = ['somar', 'subtrair', 'multiplicar', 'dividir'];
 
-        switch (operacaoMat) {
-            case 'somar':
-                n1 = binarioParaDecimal(n1);
-                n2 = binarioParaDecimal(n2);
-
-                let resultado = calcularResultado(operacao);
-
-                break;
-        }
-        switch (baseNumerica()) {
-            case 'binario':
-                n1 = binarioParaDecimal(n1);
-                n2 = binarioParaDecimal(n2);
-
-                resultado = calcularResultado(operacao);
-
-                break;
-
-            case 'decimal':
-                resultado = calcularResultado(operacao);
-                
-                break;
-
-            case 'octal':
-                n1 = binarioParaDecimal(n1);
-                n2 = binarioParaDecimal(n2);
-
-                resultado = calcularResultado(operacao);
-                
-                break;
-
-            case 'hexadecimal':
-                n1 = binarioParaDecimal(n1);
-                n2 = binarioParaDecimal(n2);
-
-                resultado = calcularResultado(operacao);
-                
-                break;
-
-
+        for (let i = 0; i < operacoesValidas.length; i++) {
+            if (operacao.toLowerCase() == operacoesValidas[i]) {
+                return true;
+            }
         }
 
-        return resultado;
+        return false;
     }
-
-    function calcularResultado(operacao, n1, n2) {
-        if (operacao == 'somar') return somar(n1, n2);
-        if (operacao == 'subtrair') return subtrair(n1, n2);
-        if (operacao == 'multiplicar') return multiplicar(n1, n2);
-        if (operacao == 'dividir') return dividir(n1, n2);
-    }
-
-    function somar(decimal1, decimal2) {
-        return decimal1 + decimal2;
-    }
-
-    function subtrair(decimal1, decimal2) {
-        return decimal1 - decimal2;
-    }
-
-    function multiplicar(decimal1, decimal2) {
-        return decimal1 * decimal2;
-    }
-
-    function dividir(decimal1, decimal2) {
-        return decimal1 / decimal2;
-    }
-
 
     // Conversões
     function binarioParaDecimal(binario) {
@@ -286,6 +293,81 @@
         }
 
         return binario.join('');
+    }
+
+    // Operações
+    function realizarOperacao(n1, n2, base, operacao) {
+        let baseNumerica = base.toLowerCase();
+        let operacaoMat = operacao.toLowerCase();
+        let basesValidas = ['binario', 'decimal', 'octal', 'hexadecimal'];
+        let resultado;
+
+        switch (operacaoMat) {
+            case 'somar':
+                n1 = binarioParaDecimal(n1);
+                n2 = binarioParaDecimal(n2);
+
+                let resultado = calcularResultado(operacao);
+
+                break;
+        }
+        switch (baseNumerica()) {
+            case 'binario':
+                n1 = binarioParaDecimal(n1);
+                n2 = binarioParaDecimal(n2);
+
+                resultado = calcularResultado(operacao);
+
+                break;
+
+            case 'decimal':
+                resultado = calcularResultado(operacao);
+                
+                break;
+
+            case 'octal':
+                n1 = binarioParaDecimal(n1);
+                n2 = binarioParaDecimal(n2);
+
+                resultado = calcularResultado(operacao);
+                
+                break;
+
+            case 'hexadecimal':
+                n1 = binarioParaDecimal(n1);
+                n2 = binarioParaDecimal(n2);
+
+                resultado = calcularResultado(operacao);
+                
+                break;
+
+
+        }
+
+        return resultado;
+    }
+
+    function calcularResultado(operacao, n1, n2) {
+        if (operacao == 'somar') return somar(n1, n2);
+        if (operacao == 'subtrair') return subtrair(n1, n2);
+        if (operacao == 'multiplicar') return multiplicar(n1, n2);
+        if (operacao == 'dividir') return dividir(n1, n2);
+    }
+
+    function somar(decimal1, decimal2) {
+        return decimal1 + decimal2;
+    }
+
+    function subtrair(decimal1, decimal2) {
+        return decimal1 - decimal2;
+    }
+
+    function multiplicar(decimal1, decimal2) {
+        return decimal1 * decimal2;
+    }
+
+    function dividir(decimal1, decimal2) {
+        return decimal1 / decimal2;
     }
 
 </script>
